@@ -1,0 +1,17 @@
+
+
+ <html>
+    <body>
+        <h1>
+            FISHING TOURNAMENT
+        </h1>
+        <br>
+        <a href="{{ url_for('home') }}">Home</a><br>
+        <a href="{{ url_for('about') }}">About</a><br>
+        <a href="{{ url_for('add_angler') }}">Add a new team</a>
+        
+        {% block body %}
+        {% endblock body %}
+    </body>
+</html>
+
