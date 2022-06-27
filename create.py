@@ -1,5 +1,5 @@
 from application import db
-from application.models import Angler, Catches
+from application.models import Teams, Catches
 
 
 

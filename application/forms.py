@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, SubmitField
 
-class AnglerForm(FlaskForm):
+class TeamsForm(FlaskForm):
     team = StringField("Team")
     email = StringField("Email")
     fee = BooleanField("Fee", default=False)
