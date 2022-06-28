@@ -12,8 +12,12 @@ import datetime
 @app.route('/' )
 def homepage():
     tms = Teams.query.all()
+    return render_template('team.html', tms=tms)  
+ 
+@app.route('/all_catches')
+def all_catches():
     cth = Catches.query.all()
-    return render_template('team.html', tms=tms, cth=cth)   
+    return render_template('catch.html', cth=cth)
 
 @app.route('/about')
 def about():
@@ -40,20 +44,20 @@ def add_team():
 def add_catch():
     form = CatchesForm()
     form.team.choices= [(teams.team, teams.team) for teams in Teams.query.all()]
- 
+    
     if request.method == 'POST':
         if form.validate_on_submit():
             catchData = Catches(
                 team = form.team.data, #change it to id
                 species = form.species.data,
                 weight= form.weight.data,
-                total =  get.weight.data, #Calculate Button to calc the total
-                rank =  form.rank.data
+               # total =  get.weight.data, #Calculate Button to calc the total
+                #rank =  form.rank.data
             )
             db.session.add(catchData)
             db.session.commit()
             #print(catchData)
-            return redirect(url_for('homepage'))
+            return redirect(url_for('all_catches'))
     return render_template('add_catch.html', form=form)
 
 @app.route('/fee_paid/<int:id>')
@@ -76,12 +80,31 @@ def update(id):
     team = Teams.query.get(id)
     if form.validate_on_submit():
         team.team = form.team.data
+        team.email = form.email.data
         db.session.commit()
         return redirect(url_for('homepage'))
     elif request.method == 'GET':
         form.team.data = team.team
+        form.email.data=team.email
     return render_template('update.html', form=form)
 
+
+@app.route('/update_catch/<int:id>', methods= ['GET', 'POST'])
+def update_catch(id):
+    form = CatchesForm()
+    catch = Catches.query.get(id)
+    form.team.choices= [(teams.team, teams.team) for teams in Teams.query.all()]
+    if form.validate_on_submit():
+        catch.team = form.team.data
+        catch.species = form.species.data
+        catch.weight = form.weight.data
+        db.session.commit()
+        return redirect(url_for('all_catches'))
+    elif request.method == 'GET':
+        form.team.data = catch.team
+        form.species.data=catch.species
+        form.weight.data= catch.weight
+    return render_template('update_catch.html', form=form)
 
 
 @app.route('/delete/<int:id>')
@@ -90,4 +113,12 @@ def delete(id):
     db.session.delete(team)
     db.session.commit()
     return redirect(url_for('homepage'))
+
+
+@app.route('/delete_catch/<int:id>')
+def delete_catch(id):
+    catch = Catches.query.get(id)
+    db.session.delete(catch)
+    db.session.commit()
+    return redirect(url_for('all_catches'))
   

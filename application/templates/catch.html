@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    {% for catchx in cth %}
+    <br>
+        <p><h2>Team: {{ catchx.team }} </h2></p>
+        <p>Species: {{ catchx.species }} </p>
+        <p>Weight: {{ catchx.weight }} </p>
+    
+    
+        <form action="{{ url_for('update_catch', id=catchx.id) }}">
+            <button type="submit">Update Catch</button>
+        </form>
+
+        <form action="{{ url_for('delete_catch', id=catchx.id) }}">
+            <button type="submit">delete Catch</button>
+        </form>
+    {% endfor %}
+{% endblock body %}

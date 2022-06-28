@@ -1,6 +1,6 @@
 from unicodedata import name
 from flask_wtf import FlaskForm
-from wtforms import SelectField, IntegerField, StringField, BooleanField, SubmitField
+from wtforms import SelectField,DecimalField, IntegerField, StringField, BooleanField, SubmitField
 class TeamsForm(FlaskForm):
     team = StringField("Team")
     email = StringField("Email")
@@ -8,9 +8,13 @@ class TeamsForm(FlaskForm):
     submit = SubmitField("Submit")
     
 class CatchesForm(FlaskForm):
+    fishes =["Cod", "Red Cod","Whiting","Mackerel",
+             "Dab", "Coalfish", "Plaice","Ling",
+             "Bass", "Flounder", "Eel", "Pollack"]
+    
     team = SelectField('Team', choices=[])
-    species=StringField('Species')
-    weight=IntegerField('weight')
-    total = IntegerField('total')
-    rank = IntegerField('rank')
+    species=SelectField('Species', choices=fishes)
+    weight=DecimalField('weight')
+    #total = IntegerField('total')
+    #rank = IntegerField('rank')
     submit = SubmitField("Submit")
