@@ -9,7 +9,7 @@
             <p>Email: {{teamx.email }}</p>
             <p>Fee paid: {{ teamx.fee }}</p>
             <form action="{{ url_for('fee_paid', id=teamx.id) }}">
-                <button type="submit">The team has paid the entry fee</button>
+                <button type="submit">Pay £50 entry fee</button>
             </form>
 
             <form action="{{ url_for('fee_not_paid', id=teamx.id) }}">

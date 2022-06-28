@@ -1,3 +1,4 @@
+from webbrowser import get
 from application import app, db
 from application.models import Teams, Catches
 from application.forms import TeamsForm, CatchesForm
@@ -38,15 +39,15 @@ def add_team():
 @app.route('/add_catch', methods=['GET','POST'])
 def add_catch():
     form = CatchesForm()
-    teamsform = TeamsForm()
+    form.team.choices= [(teams.team, teams.team) for teams in Teams.query.all()]
+ 
     if request.method == 'POST':
         if form.validate_on_submit():
-            total=0
             catchData = Catches(
-                team = Teams.query.all(),
+                team = form.team.data, #change it to id
                 species = form.species.data,
                 weight= form.weight.data,
-                total =  total + form.weight.data,
+                total =  get.weight.data, #Calculate Button to calc the total
                 rank =  form.rank.data
             )
             db.session.add(catchData)

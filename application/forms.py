@@ -1,6 +1,6 @@
+from unicodedata import name
 from flask_wtf import FlaskForm
 from wtforms import SelectField, IntegerField, StringField, BooleanField, SubmitField
-
 class TeamsForm(FlaskForm):
     team = StringField("Team")
     email = StringField("Email")
