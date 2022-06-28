@@ -1,6 +1,6 @@
 from application import app, db
 from application.models import Teams, Catches
-from application.forms import TeamsForm
+from application.forms import TeamsForm, CatchesForm
 from flask import redirect, url_for, render_template, request
 import datetime
 
@@ -11,8 +11,8 @@ import datetime
 @app.route('/' )
 def homepage():
     tms = Teams.query.all()
-    print(Teams)
-    return render_template('team.html', tms=tms)   
+    cth = Catches.query.all()
+    return render_template('team.html', tms=tms, cth=cth)   
 
 @app.route('/about')
 def about():
@@ -30,10 +30,30 @@ def add_team():
             )
             db.session.add(teamData)
             db.session.commit()
-            
+            print(teamData)
             return redirect(url_for('homepage'))
     return render_template('add_team.html', form=form)
 
+
+@app.route('/add_catch', methods=['GET','POST'])
+def add_catch():
+    form = CatchesForm()
+    teamsform = TeamsForm()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            total=0
+            catchData = Catches(
+                team = Teams.query.all(),
+                species = form.species.data,
+                weight= form.weight.data,
+                total =  total + form.weight.data,
+                rank =  form.rank.data
+            )
+            db.session.add(catchData)
+            db.session.commit()
+            #print(catchData)
+            return redirect(url_for('homepage'))
+    return render_template('add_catch.html', form=form)
 
 @app.route('/fee_paid/<int:id>')
 def fee_paid(id):

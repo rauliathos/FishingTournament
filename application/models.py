@@ -8,9 +8,9 @@ class Teams(db.Model):
 
 class Catches(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    team = db.Column(db.String(40), db.ForeignKey('teams.team'), nullable=False)
     species =db.Column(db.String(40), nullable=False)
     weight = db.Column(db.Integer, nullable=False)
-    team = db.Column(db.String(40), db.ForeignKey('teams.team'), nullable=False)
     total = db.Column(db.Integer, nullable=False)
     rank = db.Column(db.Integer, nullable=False)
     
