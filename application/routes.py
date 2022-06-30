@@ -1,13 +1,10 @@
-from webbrowser import get
+
 from application import app, db
 from application.models import Teams, Catches
 from application.forms import TeamsForm, CatchesForm
 from flask import redirect, url_for, render_template, request
-import datetime
 
-#@app.before_first_request
-#def create_tables():
- #   db.create_all()
+
 
 @app.route('/' )
 def homepage():
@@ -43,7 +40,9 @@ def add_team():
 @app.route('/add_catch', methods=['GET','POST'])
 def add_catch():
     form = CatchesForm()
-    form.team.choices= [(teams.team, teams.team) for teams in Teams.query.all()]
+    for teams in Teams.query.all():
+        if teams.fee == True:
+            form.team.choices += [teams.team]
     
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -93,7 +92,11 @@ def update(id):
 def update_catch(id):
     form = CatchesForm()
     catch = Catches.query.get(id)
-    form.team.choices= [(teams.team, teams.team) for teams in Teams.query.all()]
+    for teams in Teams.query.all():
+        if teams.fee == True:
+            form.team.choices += [teams.team]
+           
+        
     if form.validate_on_submit():
         catch.team = form.team.data
         catch.species = form.species.data
@@ -105,7 +108,7 @@ def update_catch(id):
         form.species.data=catch.species
         form.weight.data= catch.weight
     return render_template('update_catch.html', form=form)
-
+   
 
 @app.route('/delete/<int:id>')
 def delete(id):
@@ -121,4 +124,27 @@ def delete_catch(id):
     db.session.delete(catch)
     db.session.commit()
     return redirect(url_for('all_catches'))
-  
+
+
+# @app.route('/total')
+# def total():
+#     xxx=[]
+#     total=0
+    
+    
+#     for catch in Catches.query.all():
+#         xxx+=[catch.team]
+#     for i in xxx:
+#         if xxx.count(i)>1:
+            
+#             total+=catch.weight
+#             print(f'TOTAL={total}')
+#         print(f'i={i}')
+        
+#         print(f'xxx={xxx[0]}') #xxx=['aaaa', 'pais', 'dana', 'aaaa']
+#         print(f'xxx={xxx[1]}') #xxx=['aaaa', 'pais', 'dana', 'aaaa']
+#         print(f'xxx={xxx[2]}') #xxx=['aaaa', 'pais', 'dana', 'aaaa']
+#         print(f'xxx={xxx[3]}') #xxx=['aaaa', 'pais', 'dana', 'aaaa']
+#         print(f'catch={catch}')
+#         print(catch.team)
+#         print(catch.weight)

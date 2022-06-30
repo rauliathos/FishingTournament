@@ -12,7 +12,10 @@ class Catches(db.Model):
     team= db.Column(db.String(40), db.ForeignKey('teams.team'), nullable=False)
     species =db.Column(db.String(40), nullable=False)
     weight = db.Column(db.Float, nullable=False)
-   # total = db.Column(db.Float, nullable=False)
-    #rank = db.Column(db.Integer, nullable=False)
+  
+# class Results(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     team_name = db.Column(db.String(40), nullable=False, unique=True)
+#     total = db.Column(db.Float, nullable=False)
     
     

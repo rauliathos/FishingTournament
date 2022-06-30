@@ -15,6 +15,8 @@ class CatchesForm(FlaskForm):
     team = SelectField('Team', choices=[])
     species=SelectField('Species', choices=fishes)
     weight=DecimalField('weight')
-    #total = IntegerField('total')
-    #rank = IntegerField('rank')
     submit = SubmitField("Submit")
+    
+    
+# class ResultsForm(FlaskForm):
+    
