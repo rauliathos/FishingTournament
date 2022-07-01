@@ -128,4 +128,24 @@ class TestUpdate(TestBase):
             data = dict(team ="Sample1", species="Cod", weight = 1.23)  
             )
         assert Catches.query.filter_by(team ="Sample1").first().id ==1
-       
+
+class TestDelete(TestBase):
+    def test_delete_team(self):
+        response = self.client.get(
+            url_for('delete', id=2),
+            follow_redirects=True
+        )
+        assert 'Sample2' not in response.data.decode()
+                  
+           
+           
+    def test_delete_catch(self):
+        response = self.client.get(
+            url_for('delete_catch', id=1),
+           follow_redirects=True
+        
+    
+        )
+        
+        assert 'Cod' not in response.data.decode()
+ 
