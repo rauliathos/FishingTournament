@@ -86,6 +86,7 @@ class TestViews(TestBase):
         response = self.client.get(url_for("fee_not_paid", id=2))
         self.assertEqual(response.status_code, 302)
 
+
     def test_delete_team(self):
         response = self.client.get(url_for("delete", id=2))
         self.assertEqual(response.status_code, 302)
