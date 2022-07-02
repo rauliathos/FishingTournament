@@ -3,10 +3,13 @@
 [Service]
 User=jenkins
 WorkingDirectory=/home/jenkins/.jenkins/workspace/project
-Environment=DATABASE_URI='sqlite:///data.db'
-Environment=SECRET_KEY='shhhhh'
+Environment=DATABASE_URI=sqlite:///data.db
+Environment=SECRET_KEY=shhhhh
 ExecStart=/bin/sh \
      -c 'python3 -m venv venv &&\
     . ./venv/bin/activate &&\
     pip3 install -r requirements.txt &&\
-    python3 -m pytest --cov-report term-missing --cov application/ tests/
+    export SQLALCHEMY_DATABASE_URI='sqlite:///data.db'
+    export SECRET_KEY='jhjklsvhjkdsh'
+    python3 create.py &&\
+    python3 app.py'
