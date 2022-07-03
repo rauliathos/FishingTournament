@@ -5,6 +5,17 @@ Once the Team has paid the entry fee, it can be accessed in the Catches database
 You can register a catch by adding a team, the fish species and the catch weight.
 You can also see all the teams or all catches.
 
+## Tech Stack I used for this project:
+#### Kanban Board: _Jira_
+#### Database: _GCP SQL Server or other Cloud Hosted managed Database._
+#### Back-end Programming language: _Python_
+#### Unit Testing: _Pytest_
+#### Integration Testing with Python (Selenium)
+#### Front-end: _Flask (HTML)_
+#### Version Control System: _Git_
+#### CI Server: _Jenkins_
+#### Cloud server: _GCP Compute Engine_
+
 ## Starting the app
 ## Install Python
 ### Windows/MacOS
