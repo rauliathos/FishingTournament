@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+
+
+{% block body %}
+    <br>
+    {% for teamx in tms %}
+            <p><h2>Team: {{ teamx.team }} </h2></p>
+            <p>Email: {{teamx.email }}</p>
+            <p>Fee paid: {{ teamx.fee }}</p>
+            <form action="{{ url_for('fee_paid', id=teamx.id) }}">
+                <button type="submit">Pay £50 entry fee</button>
+            </form>
+
+            <form action="{{ url_for('fee_not_paid', id=teamx.id) }}">
+                <button type="submit">Fee not paid</button>
+            </form>
+
+            
+            <form action="{{ url_for('update', id=teamx.id) }}">
+                <button type="submit">Update Team</button>
+            </form>
+
+            <form action="{{ url_for('delete', id=teamx.id) }}">
+                <button type="submit">Delete Team</button>
+            </form>
+
+            
+
+
+
+{% endfor %}
+{% endblock body %}

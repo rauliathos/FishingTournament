@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo cp /home/jenkins/.jenkins/workspace/project/flaskapp.service /etc/systemd/system/flaskapp.service
+sudo systemctl daemon-reload
+sudo systemctl start flaskapp.service
